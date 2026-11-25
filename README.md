@@ -62,6 +62,12 @@ best reference available, so it serves as the yardstick.
 | room2_fireplace | back wall width | 4.74 m | 3.89 m |
 | room2_fireplace | left wall, seen edge-on | 1.41 m | 24.0 m (plane fit failed) |
 
+**MoGe-2 follow-up (MIT licence).** The same geometry run on MoGe-2 depth and focal length:
+door 2.02 m (−0.7%) and 2.13 m (+4.8%); ceilings 2.49 m (corner room) and 2.30 m (plain-wall room, closer
+to typical than Depth Pro's 2.10 m); fireplace back wall 4.74 m, the same as Depth Pro. MoGe-2 is at least as
+accurate here and is commercially licensed, so it is the recommended default (`depth_moge` in the cache).
+The rendered images in `out/` still use Depth Pro depth.
+
 **What this shows**
 - Depth Pro is within ±5% on both rooms with a visible door, so it's the primary model.
   Depth Anything V2 reads 11–15% high and produced one impossible 24 m wall.
@@ -104,7 +110,7 @@ For each room: `before.jpg`, `after_wallpaper.jpg`, `after_tiles.jpg`, `after_gr
 | Depth Anything V2 Large | CC BY-NC 4.0 (non-commercial); the Small model is Apache 2.0 |
 | Mask2Former Swin-L ADE20K | "other", so check the model card |
 | SAM 2.1 (planned) | Apache 2.0 |
-| MoGe-2 (metric-depth fallback) | MIT |
+| MoGe-2 (recommended metric depth) | MIT |
 | compphoto/Intrinsic | check the repository licence |
 
 The room photos are CC-licensed (see `data/rooms/CREDITS.md`). The rendered images in `out/` and `docs/` are

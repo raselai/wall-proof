@@ -4,6 +4,8 @@ Models (all pretrained, no fine-tuning):
   - Mask2Former Swin-L, ADE20K semantic  -> per-pixel class + soft "wall" probability
   - Apple Depth Pro                      -> metric depth (m) + estimated focal length (px)
   - Depth Anything V2 Metric Indoor L    -> second metric depth opinion (scale cross-check)
+  - MoGe-2 ViT-L (MIT licence)          -> metric depth + focal length, commercially usable
+                                           candidate to replace Depth Pro
   - Intrinsic image decomposition v2.1   -> lighting (shading) separated from surface colour
     (Careaga & Aksoy, compphoto/Intrinsic) so dark paint or brick is not mistaken for shadow
 
@@ -117,6 +119,29 @@ def add_intrinsic(paths: list[Path], cache: Path):
         print(p.name, f"intrinsic {time.time() - t:.1f}s", flush=True)
 
 
+MOGE_ID = "Ruicheng/moge-2-vitl-normal"
+
+
+def add_moge(paths: list[Path], cache: Path):
+    """Add MoGe-2 metric depth + focal length to the cached rooms."""
+    todo = [p for p in paths if "depth_moge" not in np.load(cache / f"{p.stem}.npz").files]
+    if not todo:
+        return
+    from moge.model.v2 import MoGeModel
+    model = MoGeModel.from_pretrained(MOGE_ID).eval()
+    for p in todo:
+        t = time.time()
+        img = np.asarray(Image.open(p).convert("RGB")).astype(np.float32) / 255
+        x = torch.from_numpy(img).permute(2, 0, 1)
+        out = model.infer(x, apply_mask=False, use_fp16=False)
+        depth = out["depth"].numpy().astype(np.float32)
+        focal = float(out["intrinsics"][0, 0]) * img.shape[1]  # fx is normalised by image width
+        d = dict(np.load(cache / f"{p.stem}.npz"))
+        d["depth_moge"], d["focal_moge"] = depth, focal
+        np.savez_compressed(cache / f"{p.stem}.npz", **d)
+        print(p.name, f"MoGe-2 {time.time() - t:.1f}s focal={focal:.0f}px", flush=True)
+
+
 def main(paths: list[Path], cache: Path):
     cache.mkdir(exist_ok=True)
     todo = [p for p in paths if not (cache / f"{p.stem}.npz").exists()]
@@ -147,3 +172,4 @@ if __name__ == "__main__":
     args = [Path(a) for a in sys.argv[1:]] or sorted((root / "data/rooms").glob("*.jpg"))
     main(args, root / "cache")
     add_intrinsic(args, root / "cache")
+    add_moge(args, root / "cache")
