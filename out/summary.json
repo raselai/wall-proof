@@ -1,0 +1,358 @@
+[
+ {
+  "room": "room1_plain_wall",
+  "image_px": [
+   1920,
+   1440
+  ],
+  "focal_px": 1969.0,
+  "hfov_deg": 52.0,
+  "notes": [
+   "floor plane found (100% inliers), camera tilt 6.4 deg",
+   "2 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 4.82414436340332,
+     "visible_top_m": 2.171208620071411,
+     "distance_m": 5.205756187438965
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 1.5747177600860596,
+     "visible_top_m": 2.0860583782196045,
+     "distance_m": 2.756972551345825
+    }
+   ],
+   "ceiling_height_m": 2.0996804237365723
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 5.0844573974609375,
+     "visible_top_m": 2.311876058578491,
+     "distance_m": 5.550408840179443
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 1.6681733131408691,
+     "visible_top_m": 2.194957971572876,
+     "distance_m": 2.8284032344818115
+    }
+   ],
+   "ceiling_height_m": 2.223071575164795
+  },
+  "depth_anything_v2_summary": "ceiling 2.22 m",
+  "seconds_cpu_render": 12.8
+ },
+ {
+  "room": "room2_fireplace",
+  "image_px": [
+   1920,
+   1437
+  ],
+  "focal_px": 2029.0,
+  "hfov_deg": 50.6,
+  "notes": [
+   "floor plane found (100% inliers), camera tilt 11.2 deg",
+   "3 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 4.743049621582031,
+     "visible_top_m": 2.259307622909546,
+     "distance_m": 5.92317533493042
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 4.284417629241943,
+     "visible_top_m": 1.6985288858413696,
+     "distance_m": 0.7770114541053772
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 1.4065470695495605,
+     "visible_top_m": 2.218879461288452,
+     "distance_m": 1.916319489479065
+    }
+   ]
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 3.893984794616699,
+     "visible_top_m": 1.9778249263763428,
+     "distance_m": 5.140172481536865
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 24.000638961791992,
+     "visible_top_m": 2.179212808609009,
+     "distance_m": 0.09506487846374512
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 1.5013041496276855,
+     "visible_top_m": 1.959425687789917,
+     "distance_m": 1.663757085800171
+    }
+   ]
+  },
+  "depth_anything_v2_summary": "no door/ceiling visible",
+  "seconds_cpu_render": 11.9
+ },
+ {
+  "room": "room3_corner_door",
+  "image_px": [
+   1920,
+   1440
+  ],
+  "focal_px": 1531.0,
+  "hfov_deg": 64.2,
+  "notes": [
+   "floor plane found (100% inliers), camera tilt 9.8 deg",
+   "3 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 3.3656740188598633,
+     "visible_top_m": 2.412601947784424,
+     "distance_m": 3.235118865966797
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 1.3599140644073486,
+     "visible_top_m": 2.388099431991577,
+     "distance_m": 2.8176612854003906
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 1.105175256729126,
+     "visible_top_m": 2.034470558166504,
+     "distance_m": 1.8685364723205566
+    }
+   ],
+   "ceiling_height_m": 2.4046695232391357,
+   "door": {
+    "top_m": 1.9409080743789673,
+    "pixels": 487087,
+    "touches_floor": true
+   }
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 3.845691680908203,
+     "visible_top_m": 2.7902703285217285,
+     "distance_m": 3.8313403129577637
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 1.5117859840393066,
+     "visible_top_m": 2.7402684688568115,
+     "distance_m": 3.411194324493408
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 0.7357988357543945,
+     "visible_top_m": 2.3095147609710693,
+     "distance_m": 2.803586483001709
+    }
+   ],
+   "ceiling_height_m": 2.774064064025879,
+   "door": {
+    "top_m": 2.251465320587158,
+    "pixels": 487087,
+    "touches_floor": true
+   }
+  },
+  "door_calibration_factor": 1.046,
+  "depth_anything_v2_summary": "door 2.25 m, ceiling 2.77 m",
+  "seconds_cpu_render": 16.1
+ },
+ {
+  "room": "room4_corner_windows",
+  "image_px": [
+   1920,
+   1440
+  ],
+  "focal_px": 1518.0,
+  "hfov_deg": 64.6,
+  "notes": [
+   "floor plane found (100% inliers), camera tilt 10.9 deg",
+   "2 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 2.610269784927368,
+     "visible_top_m": 2.4424796104431152,
+     "distance_m": 2.4926741123199463
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 2.347184658050537,
+     "visible_top_m": 2.536749839782715,
+     "distance_m": 3.644666910171509
+    }
+   ]
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 2.8864994049072266,
+     "visible_top_m": 2.872812032699585,
+     "distance_m": 3.212390422821045
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 2.8010542392730713,
+     "visible_top_m": 2.9730451107025146,
+     "distance_m": 4.394556045532227
+    }
+   ]
+  },
+  "depth_anything_v2_summary": "no door/ceiling visible",
+  "seconds_cpu_render": 12.4
+ },
+ {
+  "room": "room5_door_brick",
+  "image_px": [
+   1920,
+   1426
+  ],
+  "focal_px": 1598.0,
+  "hfov_deg": 62.0,
+  "notes": [
+   "floor plane found (100% inliers), camera tilt 4.6 deg",
+   "2 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 6.446435928344727,
+     "visible_top_m": 2.7287540435791016,
+     "distance_m": 5.66508674621582
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 4.167367935180664,
+     "visible_top_m": 2.6927661895751953,
+     "distance_m": 3.7763428688049316
+    }
+   ],
+   "ceiling_height_m": 2.7680649757385254,
+   "door": {
+    "top_m": 2.08744478225708,
+    "pixels": 304763,
+    "touches_floor": true
+   }
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 6.969135284423828,
+     "visible_top_m": 3.16597580909729,
+     "distance_m": 6.857841491699219
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 1.511651873588562,
+     "visible_top_m": 2.994591474533081,
+     "distance_m": 4.3234734535217285
+    }
+   ],
+   "ceiling_height_m": 3.1960597038269043,
+   "door": {
+    "top_m": 2.3371729850769043,
+    "pixels": 304763,
+    "touches_floor": true
+   }
+  },
+  "door_calibration_factor": 0.972,
+  "depth_anything_v2_summary": "door 2.34 m, ceiling 3.20 m",
+  "seconds_cpu_render": 14.2
+ },
+ {
+  "room": "room6_boxes_sofa",
+  "image_px": [
+   1920,
+   1440
+  ],
+  "focal_px": 2128.0,
+  "hfov_deg": 48.6,
+  "notes": [
+   "floor plane found (94% inliers), camera tilt 9.3 deg",
+   "3 wall plane(s)"
+  ],
+  "depth_pro": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 3.16052508354187,
+     "visible_top_m": 2.183415651321411,
+     "distance_m": 4.0708184242248535
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 2.444413185119629,
+     "visible_top_m": 2.2053639888763428,
+     "distance_m": 2.761054754257202
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 2.135711669921875,
+     "visible_top_m": 2.2080092430114746,
+     "distance_m": 1.8527805805206299
+    }
+   ],
+   "door": {
+    "top_m": 1.0514400005340576,
+    "pixels": 12652,
+    "touches_floor": true
+   }
+  },
+  "depth_anything_v2": {
+   "walls": [
+    {
+     "plane": 0,
+     "visible_width_m": 2.688088893890381,
+     "visible_top_m": 1.8842426538467407,
+     "distance_m": 3.4427497386932373
+    },
+    {
+     "plane": 1,
+     "visible_width_m": 2.5198285579681396,
+     "visible_top_m": 1.9951395988464355,
+     "distance_m": 2.096698045730591
+    },
+    {
+     "plane": 2,
+     "visible_width_m": 2.3687148094177246,
+     "visible_top_m": 2.112431287765503,
+     "distance_m": 1.4081357717514038
+    }
+   ],
+   "door": {
+    "top_m": 1.0707263946533203,
+    "pixels": 12652,
+    "touches_floor": true
+   }
+  },
+  "depth_anything_v2_summary": "door candidate rejected",
+  "seconds_cpu_render": 12.8
+ }
+]

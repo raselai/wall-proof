@@ -1,0 +1,72 @@
+{
+ "room": "room3_corner_door",
+ "image_px": [
+  1920,
+  1440
+ ],
+ "focal_px": 1531.0,
+ "hfov_deg": 64.2,
+ "notes": [
+  "floor plane found (100% inliers), camera tilt 9.8 deg",
+  "3 wall plane(s)"
+ ],
+ "depth_pro": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 3.3656740188598633,
+    "visible_top_m": 2.412601947784424,
+    "distance_m": 3.235118865966797
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 1.3599140644073486,
+    "visible_top_m": 2.388099431991577,
+    "distance_m": 2.8176612854003906
+   },
+   {
+    "plane": 2,
+    "visible_width_m": 1.105175256729126,
+    "visible_top_m": 2.034470558166504,
+    "distance_m": 1.8685364723205566
+   }
+  ],
+  "ceiling_height_m": 2.4046695232391357,
+  "door": {
+   "top_m": 1.9409080743789673,
+   "pixels": 487087,
+   "touches_floor": true
+  }
+ },
+ "depth_anything_v2": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 3.845691680908203,
+    "visible_top_m": 2.7902703285217285,
+    "distance_m": 3.8313403129577637
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 1.5117859840393066,
+    "visible_top_m": 2.7402684688568115,
+    "distance_m": 3.411194324493408
+   },
+   {
+    "plane": 2,
+    "visible_width_m": 0.7357988357543945,
+    "visible_top_m": 2.3095147609710693,
+    "distance_m": 2.803586483001709
+   }
+  ],
+  "ceiling_height_m": 2.774064064025879,
+  "door": {
+   "top_m": 2.251465320587158,
+   "pixels": 487087,
+   "touches_floor": true
+  }
+ },
+ "door_calibration_factor": 1.046,
+ "depth_anything_v2_summary": "door 2.25 m, ceiling 2.77 m",
+ "seconds_cpu_render": 16.1
+}

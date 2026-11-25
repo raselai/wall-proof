@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>True-Scale Wall Proof</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,500..800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column; a wide stage for the before/after viewer; tape-measure tick rule as the only ornament */
+:root {
+  --bg: #f4f6f5;
+  --surface: #ffffff;
+  --fg: #18201f;
+  --muted: #5b6765;
+  --line: #d5dcda;
+  --accent: #0f5a5c;      /* the wallpaper's deep teal */
+  --tape: #e2a72e;        /* measuring-tape yellow */
+  --good: #2e7d4f;
+  --warn: #a3560f;
+  --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111716; --surface: #182120; --fg: #e5ecea; --muted: #9aa8a5; --line: #2b3735;
+    --accent: #5cc2c0; --tape: #f0b947; --good: #6cc792; --warn: #f0a35e; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111716; --surface: #182120; --fg: #e5ecea; --muted: #9aa8a5; --line: #2b3735;
+  --accent: #5cc2c0; --tape: #f0b947; --good: #6cc792; --warn: #f0a35e; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font: 15px/1.6 var(--font-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+.prose { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--font-display); font-stretch: 85%; line-height: 1.1; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; letter-spacing: -0.01em; }
+h2 { font-size: 1.6rem; font-weight: 700; }
+h3 { font-size: 1.1rem; font-weight: 700; }
+p { margin: 0; }
+.eyebrow { font: 500 0.75rem/1 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.mono, td.num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* tape-measure rule: real centimetre ticks */
+.tape {
+  height: 22px; border-top: 3px solid var(--tape);
+  background:
+    repeating-linear-gradient(90deg, var(--tape) 0 2px, transparent 2px 100px) top left / 100% 16px no-repeat,
+    repeating-linear-gradient(90deg, var(--tape) 0 1px, transparent 1px 50px) top left / 100% 11px no-repeat,
+    repeating-linear-gradient(90deg, color-mix(in srgb, var(--tape) 70%, transparent) 0 1px, transparent 1px 10px) top left / 100% 6px no-repeat;
+}
+
+header { padding-top: 40px; display: grid; gap: 16px; }
+.lede { font-size: 1.1rem; color: var(--fg); max-width: 62ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-size: 0.9rem; }
+.facts b { color: var(--fg); font-weight: 600; }
+
+/* viewer */
+.viewer { display: grid; gap: 16px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.tab, .seg button {
+  font: 500 0.85rem/1 var(--font-body); color: var(--fg); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 999px; padding: 9px 14px; cursor: pointer;
+}
+.tab[aria-selected="true"], .seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.tab:focus-visible, .seg button:focus-visible, .slider input:focus-visible + .handle { outline: 3px solid var(--tape); outline-offset: 2px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.seg .label { font-size: 0.8rem; color: var(--muted); margin-right: 4px; }
+
+.slider { position: relative; width: 100%; max-width: 100%; border-radius: 6px; overflow: hidden; background: var(--line); user-select: none; touch-action: pan-y; }
+.slider img { display: block; width: 100%; height: auto; }
+.slider .after { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--pos, 50%)); }
+.slider .handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 3px; margin-left: -1.5px; background: var(--tape); pointer-events: none; }
+.slider .handle::after {
+  content: "◂ ▸"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  background: var(--tape); color: #18201f; font: 700 12px/1 var(--font-mono); padding: 9px 8px; border-radius: 999px; white-space: nowrap;
+}
+.slider input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.tagl, .tagr { position: absolute; top: 10px; font: 600 0.72rem/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase;
+  background: rgba(16, 22, 21, 0.72); color: #fff; padding: 6px 8px; border-radius: 4px; pointer-events: none; }
+.tagl { left: 10px; } .tagr { right: 10px; }
+.caption { color: var(--muted); font-size: 0.88rem; }
+
+.room-info { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+@media (max-width: 760px) { .room-info { grid-template-columns: minmax(0, 1fr); } }
+.note { display: grid; gap: 10px; }
+.pill { display: inline-block; font: 600 0.72rem/1 var(--font-mono); padding: 5px 8px; border-radius: 4px; border: 1px solid currentColor; }
+.pill.good { color: var(--good); } .pill.warn { color: var(--warn); } .pill.neutral { color: var(--muted); }
+.measure { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: grid; gap: 10px; }
+.measure dl { display: grid; grid-template-columns: auto auto auto; gap: 6px 16px; margin: 0; font-size: 0.88rem; }
+.measure dt { color: var(--muted); }
+.measure dd { margin: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; }
+.measure .head { font: 500 0.72rem/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: right; }
+details.debug summary { cursor: pointer; color: var(--accent); font-weight: 500; }
+details.debug img { margin-top: 12px; border-radius: 6px; }
+
+/* sections */
+section { display: grid; gap: 16px; }
+.table-scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.92rem; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+th { font: 500 0.75rem/1.2 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+td.num { text-align: right; }
+th.num { text-align: right; }
+.err-good { color: var(--good); } .err-warn { color: var(--warn); }
+
+.flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 960px) { .flow { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .flow { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 460px) { .flow { grid-template-columns: minmax(0, 1fr); } }
+.step { border-top: 3px solid var(--accent); padding-top: 12px; display: grid; gap: 6px; align-content: start; }
+.step .model { font: 500 0.78rem/1.4 var(--font-mono); color: var(--accent); }
+.step p { font-size: 0.9rem; color: var(--muted); }
+
+ul.limits { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; max-width: 72ch; }
+ul.limits b { font-weight: 600; }
+footer { color: var(--muted); font-size: 0.82rem; display: grid; gap: 6px; }
+footer a, a { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Proof of concept · computer vision · no generative model</span>
+    <h1>Wall products in a room photo, at true size</h1>
+    <p class="lede">Six public room photos, three products, fully automatic. Pretrained models find the walls and measure the room in metres, then the product is laid on each wall plane at its real repeat size. Furniture, doors, windows and skirting boards stay in front.</p>
+    <div class="facts">
+      <span><b>6</b> rooms</span>
+      <span><b>3</b> products</span>
+      <span><b>0</b> manual steps per photo</span>
+      <span>CPU only: <b class="mono">~40 s</b> models + <b class="mono">~12 s</b> render per photo</span>
+    </div>
+    <div class="tape" aria-hidden="true"></div>
+  </header>
+
+  <section class="viewer" aria-label="Before and after viewer">
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <div class="seg" id="products"><span class="label">Product</span></div>
+    <div class="slider" id="slider">
+      <img id="imgBefore" alt="Room photo before">
+      <img id="imgAfter" class="after" alt="Room photo after">
+      <div class="handle" aria-hidden="true"></div>
+      <span class="tagl">Before</span><span class="tagr">After</span>
+      <input type="range" id="pos" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+    </div>
+    <p class="caption" id="caption"></p>
+    <div class="room-info">
+      <div class="note">
+        <h3 id="roomTitle"></h3>
+        <div id="roomPills"></div>
+        <p id="roomNote"></p>
+        <details class="debug"><summary>What the models saw (planes, depth, scale grid)</summary><img id="imgDebug" alt="Debug view: wall planes, depth map and scale grids"></details>
+      </div>
+      <div class="measure" id="measure"></div>
+    </div>
+  </section>
+
+  <div class="tape" aria-hidden="true"></div>
+
+  <section>
+    <span class="eyebrow">The biggest risk</span>
+    <h2>Scale from one photo</h2>
+    <p class="prose">There is no tape-measured ground truth for public photos, so a standard US interior door (2.03 m) is the yardstick. Depth Pro stays within ±5% wherever a door is visible. Depth Anything V2 reads 11–15% high and produced one impossible 24 m wall, so it is kept only as a cross-check: when the two models disagree, the product should ask the user for one reference.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Room</th><th>Reference</th><th class="num">Depth Pro</th><th class="num">Depth Anything V2</th></tr></thead>
+        <tbody>
+          <tr><td>Corner with door</td><td>Door, standard 2.03 m</td><td class="num">1.94 m <span class="err-good">−4.4%</span></td><td class="num">2.25 m <span class="err-warn">+10.8%</span></td></tr>
+          <tr><td>Door, windows, brick</td><td>Door, standard 2.03 m</td><td class="num">2.09 m <span class="err-good">+3.0%</span></td><td class="num">2.34 m <span class="err-warn">+15.3%</span></td></tr>
+          <tr><td>Corner with door</td><td>Ceiling, US typical 2.44 m</td><td class="num">2.40 m</td><td class="num">2.77 m</td></tr>
+          <tr><td>Plain wall</td><td>Ceiling height</td><td class="num">2.10 m <span class="err-warn">likely low</span></td><td class="num">2.22 m</td></tr>
+          <tr><td>Fireplace</td><td>Back wall width</td><td class="num">4.74 m</td><td class="num">3.89 m <span class="err-warn">−18% vs Depth Pro</span></td></tr>
+          <tr><td>Fireplace</td><td>Left wall, seen edge-on</td><td class="num">1.41 m</td><td class="num">24.0 m <span class="err-warn">plane fit failed</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prose">The fallback is already built in. When a door is visible, the pipeline computes a correction factor (×1.046 and ×0.972 here) and can re-render at corrected scale: pick <b>“50 cm grid, door-calibrated”</b> in the viewer above. In the product this becomes one tap: “this is a door” or “this wall is 3.6 m wide”.</p>
+  </section>
+
+  <div class="tape" aria-hidden="true"></div>
+
+  <section>
+    <span class="eyebrow">Pipeline</span>
+    <h2>Existing models first, geometry after</h2>
+    <div class="flow flow5">
+      <div class="step"><h3>Segment</h3><span class="model">Mask2Former Swin-L · ADE20K</span><p>Wall, floor, ceiling, door, window and every object in front of the wall.</p></div>
+      <div class="step"><h3>Measure</h3><span class="model">Apple Depth Pro</span><p>Metric depth in metres plus the camera's focal length, from a single photo.</p></div>
+      <div class="step"><h3>Separate light</h3><span class="model">Intrinsic decomposition v2.1</span><p>Splits surface colour from lighting, so dark brick or paint is not mistaken for shadow.</p></div>
+      <div class="step"><h3>Fit planes</h3><span class="model">RANSAC, forced vertical</span><p>Floor plane gives “up”; each wall becomes a vertical plane; one wall split by depth noise is merged back.</p></div>
+      <div class="step"><h3>Lay product</h3><span class="model">ray ∩ plane → metres</span><p>Every wall pixel gets a position in metres; the texture is read there, mip-filtered, relit with the room's light and composited.</p></div>
+    </div>
+  </section>
+
+  <div class="tape" aria-hidden="true"></div>
+
+  <section>
+    <span class="eyebrow">Not solved yet</span>
+    <h2>Known limitations</h2>
+    <ul class="limits">
+      <li><b>Mask edges</b> are slightly soft at ceiling lines and around furniture. Next: refine with SAM 2, prompted by the wall mask.</li>
+      <li><b>Dark or mixed existing walls</b>: the intrinsic model's albedo now evens out brick and plaster, but a slightly dark band remains under one window in the brick room.</li>
+      <li><b>Sockets and switches</b> are papered over. A real install cuts around them: small detector or SAM 2 point prompts.</li>
+      <li><b>Scale</b> is about ±5% at best from one photo and worse on some, so the one-tap reference is required, not optional.</li>
+      <li><b>Products</b> here are generated textures with exact known size. Real catalogue images need a repeat size or DPI per SKU.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="tape" aria-hidden="true"></div>
+    <p>Products: Deco Fan wallpaper (roll width 53 cm, pattern repeat 53 cm, each fan 26.5 cm wide) · Subway tile 30 × 10 cm with 3 mm grout · 50 cm measurement grid.</p>
+    <p>Room photos from Wikimedia Commons: Paulo O (CC BY 2.0), Ryan Snyder (CC BY 2.0), aismallard (CC BY-SA 3.0, two photos), Downtowngal (CC BY-SA 3.0), Pip! Gold (CC BY-SA 2.0). The after images are derivative works under the same licences.</p>
+  </footer>
+</div>
+
+<script>
+const ROOMS = [
+  { id: "room1_plain_wall", name: "Plain wall", title: "Plain wall, chair in front", hfov: 52.0, planes: 2,
+    pills: [["good", "chair kept in front"], ["good", "skirting kept"], ["neutral", "no door to check scale"]],
+    note: "Depth bends this flat wall slightly, which first split it into two planes and broke the pattern. A merge step now refits it as one plane. The ceiling reads 2.10 m, which may be about 10% low, and there is no door here to correct it.",
+    dp: { door: null, ceil: 2.10, widths: [4.82, 1.57] }, da: { door: null, ceil: 2.22, widths: [5.08, 1.67] } },
+  { id: "room2_fireplace", name: "Fireplace", title: "Fireplace and window", hfov: 50.6, planes: 3,
+    pills: [["good", "fireplace, shutters kept"], ["good", "skirting kept"], ["warn", "sockets papered over"]],
+    note: "Three walls, with the fireplace and both window shutters cut out by segmentation. With Depth Anything V2 depth, the left wall (seen almost edge-on) came out 24 m wide; Depth Pro gives 1.41 m.",
+    dp: { door: null, ceil: null, widths: [4.74, 4.28, 1.41] }, da: { door: null, ceil: null, widths: [3.89, 24.0, 1.5] } },
+  { id: "room3_corner_door", name: "Corner with door", title: "Corner with door and closet", hfov: 64.2, planes: 3, calib: 1.046,
+    pills: [["good", "door −4.4%"], ["good", "corner aligned"], ["good", "skirting kept"]],
+    note: "The door measures 1.94 m against the 2.03 m standard. The ceiling measures 2.40 m, close to the usual 2.44 m. The closet interior is wall, so it is covered too.",
+    dp: { door: 1.94, ceil: 2.40, widths: [3.37, 1.36, 1.11] }, da: { door: 2.25, ceil: 2.77, widths: [3.85, 1.51, 0.74] } },
+  { id: "room4_corner_windows", name: "Sunlit corner", title: "Corner with windows and sunlight", hfov: 64.6, planes: 2,
+    pills: [["good", "sun and shade kept"], ["good", "two walls meet"], ["neutral", "no door to check scale"]],
+    note: "Sunlight on the right wall and shade on the left carry over onto the product, because the room's own shading is multiplied back in. Using the intrinsic model's shading directly lost this sunlight, so it is only used to correct dark materials.",
+    dp: { door: null, ceil: null, widths: [2.61, 2.35] }, da: { door: null, ceil: null, widths: [2.89, 2.8] } },
+  { id: "room5_door_brick", name: "Brick room", title: "Door, windows and brick (weak case)", hfov: 62.0, planes: 2, calib: 0.972,
+    pills: [["good", "door +3.0%"], ["good", "brick evened out"], ["warn", "dark band under right window"], ["warn", "soft ceiling edge"]],
+    note: "Light plaster and dark brick share one wall plane. Room lighting alone would read the brick as deep shadow. The intrinsic decomposition model's albedo layer says it is a darker material, so the product is brightened there. A slightly dark band remains under the right-hand window.",
+    dp: { door: 2.09, ceil: 2.77, widths: [6.45, 4.17] }, da: { door: 2.34, ceil: 3.20, widths: [6.97, 1.51] } },
+  { id: "room6_boxes_sofa", name: "Boxes and sofa", title: "Boxes and sofa in front", hfov: 48.6, planes: 3,
+    pills: [["good", "boxes, bag, sofa kept"], ["good", "false door rejected"], ["neutral", "no door to check scale"]],
+    note: "Clutter in front of the wall stays in front. A jacket hanging on a half-open door was detected as a door; its 1.05 m height failed the plausibility check, so it was not used for scale.",
+    dp: { door: null, ceil: null, widths: [3.16, 2.44, 2.14] }, da: { door: null, ceil: null, widths: [2.69, 2.52, 2.37] } },
+];
+const PRODUCTS = [
+  { key: "wallpaper", label: "Deco Fan wallpaper", cap: "Deco Fan wallpaper: roll width 53 cm, pattern repeat 53 cm, each fan 26.5 cm wide." },
+  { key: "tiles", label: "Subway tile", cap: "Subway tile 30 × 10 cm, running bond, 3 mm grout, starting from the floor line." },
+  { key: "grid", label: "50 cm grid", cap: "Measurement grid: red lines every 50 cm, blue every 10 cm, measured from the floor. Uses the raw Depth Pro scale." },
+  { key: "grid_cal", label: "50 cm grid, door-calibrated", cap: "Same grid after scaling the room so the detected door is exactly 2.03 m tall.", needsCalib: true },
+];
+const $ = (id) => document.getElementById(id);
+let room = ROOMS[0], product = PRODUCTS[0];
+
+function fmt(v) { return v == null ? "—" : v.toFixed(2) + " m"; }
+
+function renderTabs() {
+  $("tabs").innerHTML = "";
+  ROOMS.forEach((r) => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.id = "tab-" + r.id; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(r === room)); b.textContent = r.name;
+    b.onclick = () => { room = r; if (product.needsCalib && !r.calib) product = PRODUCTS[0]; update(); };
+    $("tabs").appendChild(b);
+  });
+  const seg = $("products");
+  seg.querySelectorAll("button").forEach((b) => b.remove());
+  PRODUCTS.forEach((p) => {
+    if (p.needsCalib && !room.calib) return;
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "prod-" + p.key; b.setAttribute("aria-pressed", String(p === product)); b.textContent = p.label;
+    b.onclick = () => { product = p; update(); };
+    seg.appendChild(b);
+  });
+}
+
+function update() {
+  renderTabs();
+  const base = "img/" + room.id + "/";
+  $("imgBefore").src = base + "before.jpg";
+  $("imgAfter").src = base + product.key + ".jpg";
+  $("imgDebug").src = base + "debug.jpg";
+  $("caption").textContent = product.cap + (product.needsCalib ? " Correction factor ×" + room.calib.toFixed(3) + "." : "");
+  $("roomTitle").textContent = room.title;
+  $("roomNote").textContent = room.note;
+  $("roomPills").innerHTML = room.pills.map(([k, t]) => `<span class="pill ${k}">${t}</span>`).join(" ");
+  const rows = [
+    ["Door height", fmt(room.dp.door), fmt(room.da.door)],
+    ["Ceiling height", fmt(room.dp.ceil), fmt(room.da.ceil)],
+    ...room.dp.widths.map((w, i) => ["Wall " + (i + 1) + " visible width", fmt(w), ""]),
+  ];
+  $("measure").innerHTML =
+    `<span class="eyebrow">Measured automatically</span>
+     <dl><dt></dt><dd class="head">Depth Pro</dd><dd class="head">DA-V2</dd>
+     ${rows.map(([a, b, c]) => `<dt>${a}</dt><dd>${b}</dd><dd>${c}</dd>`).join("")}</dl>
+     <p class="caption mono">${room.planes} wall planes · horizontal FOV ${room.hfov}°</p>`;
+}
+
+const slider = $("slider"), pos = $("pos");
+pos.addEventListener("input", () => slider.style.setProperty("--pos", pos.value + "%"));
+update();
+</script>
+
+</body>
+</html>

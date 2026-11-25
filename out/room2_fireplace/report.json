@@ -1,0 +1,59 @@
+{
+ "room": "room2_fireplace",
+ "image_px": [
+  1920,
+  1437
+ ],
+ "focal_px": 2029.0,
+ "hfov_deg": 50.6,
+ "notes": [
+  "floor plane found (100% inliers), camera tilt 11.2 deg",
+  "3 wall plane(s)"
+ ],
+ "depth_pro": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 4.743049621582031,
+    "visible_top_m": 2.259307622909546,
+    "distance_m": 5.92317533493042
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 4.284417629241943,
+    "visible_top_m": 1.6985288858413696,
+    "distance_m": 0.7770114541053772
+   },
+   {
+    "plane": 2,
+    "visible_width_m": 1.4065470695495605,
+    "visible_top_m": 2.218879461288452,
+    "distance_m": 1.916319489479065
+   }
+  ]
+ },
+ "depth_anything_v2": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 3.893984794616699,
+    "visible_top_m": 1.9778249263763428,
+    "distance_m": 5.140172481536865
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 24.000638961791992,
+    "visible_top_m": 2.179212808609009,
+    "distance_m": 0.09506487846374512
+   },
+   {
+    "plane": 2,
+    "visible_width_m": 1.5013041496276855,
+    "visible_top_m": 1.959425687789917,
+    "distance_m": 1.663757085800171
+   }
+  ]
+ },
+ "depth_anything_v2_summary": "no door/ceiling visible",
+ "seconds_cpu_render": 11.9
+}

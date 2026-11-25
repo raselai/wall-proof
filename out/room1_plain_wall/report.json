@@ -1,0 +1,49 @@
+{
+ "room": "room1_plain_wall",
+ "image_px": [
+  1920,
+  1440
+ ],
+ "focal_px": 1969.0,
+ "hfov_deg": 52.0,
+ "notes": [
+  "floor plane found (100% inliers), camera tilt 6.4 deg",
+  "2 wall plane(s)"
+ ],
+ "depth_pro": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 4.82414436340332,
+    "visible_top_m": 2.171208620071411,
+    "distance_m": 5.205756187438965
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 1.5747177600860596,
+    "visible_top_m": 2.0860583782196045,
+    "distance_m": 2.756972551345825
+   }
+  ],
+  "ceiling_height_m": 2.0996804237365723
+ },
+ "depth_anything_v2": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 5.0844573974609375,
+    "visible_top_m": 2.311876058578491,
+    "distance_m": 5.550408840179443
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 1.6681733131408691,
+    "visible_top_m": 2.194957971572876,
+    "distance_m": 2.8284032344818115
+   }
+  ],
+  "ceiling_height_m": 2.223071575164795
+ },
+ "depth_anything_v2_summary": "ceiling 2.22 m",
+ "seconds_cpu_render": 12.8
+}

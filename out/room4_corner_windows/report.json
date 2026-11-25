@@ -1,0 +1,47 @@
+{
+ "room": "room4_corner_windows",
+ "image_px": [
+  1920,
+  1440
+ ],
+ "focal_px": 1518.0,
+ "hfov_deg": 64.6,
+ "notes": [
+  "floor plane found (100% inliers), camera tilt 10.9 deg",
+  "2 wall plane(s)"
+ ],
+ "depth_pro": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 2.610269784927368,
+    "visible_top_m": 2.4424796104431152,
+    "distance_m": 2.4926741123199463
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 2.347184658050537,
+    "visible_top_m": 2.536749839782715,
+    "distance_m": 3.644666910171509
+   }
+  ]
+ },
+ "depth_anything_v2": {
+  "walls": [
+   {
+    "plane": 0,
+    "visible_width_m": 2.8864994049072266,
+    "visible_top_m": 2.872812032699585,
+    "distance_m": 3.212390422821045
+   },
+   {
+    "plane": 1,
+    "visible_width_m": 2.8010542392730713,
+    "visible_top_m": 2.9730451107025146,
+    "distance_m": 4.394556045532227
+   }
+  ]
+ },
+ "depth_anything_v2_summary": "no door/ceiling visible",
+ "seconds_cpu_render": 12.4
+}
