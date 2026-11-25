@@ -1,5 +1,7 @@
 # Wall product visualiser — proof of concept
 
+**Live before/after gallery: https://raselai.github.io/wall-proof/**
+
 Puts a real wall product (wallpaper, tiles) into a customer's room photo **automatically and at
 true physical size**, using only pretrained models plus geometry. No generative model is involved,
 so the product pattern is reproduced exactly; only its placement, perspective and lighting change.
